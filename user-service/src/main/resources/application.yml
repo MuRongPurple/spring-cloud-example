@@ -1,3 +1,5 @@
+server:
+  port: 8088
 spring:
   aop:
     auto: true
@@ -13,9 +15,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1 #eureka注册时，ip为对外访问的ip，实际访问对外的ip时会转到127.0.0.1
+
 logging:
   level:
     com.murongpurple.org.interceptor: debug
-server:
-  port: 8088
+user-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #负载均衡算法
 

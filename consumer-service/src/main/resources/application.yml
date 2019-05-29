@@ -1,3 +1,5 @@
+server:
+  port: 8089
 spring:
   aop:
     auto: true
@@ -8,9 +10,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 30 #每隔30秒拉取注册列表
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1 #eureka注册时，ip为对外访问的ip，实际访问对外的ip时会转到127.0.0.1
+    lease-renewal-interval-in-seconds: 30 #心跳检测时间 30秒发一次
+    lease-expiration-duration-in-seconds: 90 #90秒不发心跳包，就认为宕机，Eureka会移除宕机实例  两个值都是有默认值可以不添加
+
 logging:
   level:
     com.murongpurple.org.interceptor: debug
-server:
-  port: 8089
+
 
