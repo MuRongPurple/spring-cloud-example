@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 拦截器，请求会被拦截
  * @author Denny
  */
 @Slf4j

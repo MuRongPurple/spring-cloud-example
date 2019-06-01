@@ -1,0 +1,20 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: gateway-server
+eureka:
+  client:
+    service-url: #先注册自己，否则会报错
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+      prefer-ip-address: true
+      ip-address: 127.0.0.1 #eureka注册时，ip为对外访问的ip，实际访问对外的ip时会转到127.0.0.1
+zuul:
+  routes:
+#    haha:
+#      path: /consumer-service/**  #没有eureka时可使用该配置
+#      url: http://127.0.0.1:8089
+    hehe:
+      path: /consumer-service/**
+      serviceId: consumer-service

@@ -28,6 +28,7 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //拦截器配置
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
     }
 }

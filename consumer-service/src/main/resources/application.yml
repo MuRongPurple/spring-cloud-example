@@ -1,5 +1,8 @@
 server:
   port: 8089
+logging:
+  level:
+    com.murongpurple.org.interceptor: debug
 spring:
   aop:
     auto: true
@@ -16,9 +19,20 @@ eureka:
     ip-address: 127.0.0.1 #eureka注册时，ip为对外访问的ip，实际访问对外的ip时会转到127.0.0.1
     lease-renewal-interval-in-seconds: 30 #心跳检测时间 30秒发一次
     lease-expiration-duration-in-seconds: 90 #90秒不发心跳包，就认为宕机，Eureka会移除宕机实例  两个值都是有默认值可以不添加
+#feign 内置ribbon以及Hystrix需要的配置
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ConnectionTimeOut: 500 #建立连接超时时长
+  ReadTimeOut: 2000 #返回数据超时时长
 
-logging:
-  level:
-    com.murongpurple.org.interceptor: debug
 
-
+#单独使用Hystrix的配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000 # 设置所有hystrix的超时时间为4000ms
