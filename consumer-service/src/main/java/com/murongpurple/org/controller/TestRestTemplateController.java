@@ -8,16 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/consumer")
 @DefaultProperties(defaultFallback = "getMsgFromUserServiceFallbackMethod") //该controller下熔断发生后调用的方法
 public class TestRestTemplateController {
 
@@ -43,7 +41,7 @@ public class TestRestTemplateController {
     public Object getMsgFromUserService1() {
         List<ServiceInstance> serviceInstanceList = discoveryClient.getInstances("user-service");
         ServiceInstance serviceInstance = serviceInstanceList.get(0);
-        String url = serviceInstance.getUri().toString() + "/api/index2";
+        String url = serviceInstance.getUri().toString() + "/user/index2";
         String msg = restTemplate.getForObject(url, String.class);
         return msg;
     }
@@ -57,7 +55,7 @@ public class TestRestTemplateController {
     @GetMapping("/msg2")
     public Object getMsgFromUserService2() {
         //内部会根据user-service去找对应的ip port并且是负载均衡的
-        String url = "http://user-service/api/index2";
+        String url = "http://user-service/user/index2";
         String msg = restTemplate.getForObject(url, String.class);
         return msg;
     }
@@ -72,7 +70,7 @@ public class TestRestTemplateController {
     @GetMapping("/msg3")
     public Object getMsgFromUserService3() {
         //内部会根据user-service去找对应的ip port并且是负载均衡的
-        String url = "http://user-service/api/index2";
+        String url = "http://user-service/user/index2";
         String msg = restTemplate.getForObject(url, String.class);
         return msg;
     }
@@ -89,7 +87,7 @@ public class TestRestTemplateController {
     @GetMapping("/msg4")
     public Object getMsgFromUserService4() {
         //内部会根据user-service去找对应的ip port并且是负载均衡的
-        String url = "http://user-service/api/index2";
+        String url = "http://user-service/user/index2";
         String msg = restTemplate.getForObject(url, String.class);
         return msg;
     }
@@ -108,7 +106,7 @@ public class TestRestTemplateController {
     @GetMapping("/msg5")
     public Object getMsgFromUserService5(int id) {
         //内部会根据user-service去找对应的ip port并且是负载均衡的
-        String url = "http://user-service/api/index3" + "?id=" + id;
+        String url = "http://user-service/user/index3" + "?id=" + id;
         String msg = restTemplate.getForObject(url, String.class);
         return msg;
     }

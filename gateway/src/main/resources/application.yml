@@ -15,6 +15,29 @@ zuul:
 #    haha:
 #      path: /consumer-service/**  #没有eureka时可使用该配置
 #      url: http://127.0.0.1:8089
-    hehe:
-      path: /consumer-service/**
+
+#    hehe:
+#      path: /consumer-service/**
+#      serviceId: consumer-service
+
+#    consumer-service: /consumer-service/** #简化版，默认有，可以不配置
+    consumer-service:
+      path: /consumer/**
       serviceId: consumer-service
+      strip-prefix: false #URL匹配，不去除匹配值
+  ignored-services:
+    - user-service #网关不暴露该service
+  prefix: /api  #访问网关前缀必须加/api
+
+#zuul中也实现 ribbon与Hystrix，需要配置
+ribbon:
+  ConnectionTimeOut: 500 #建立连接超时时长
+  ReadTimeOut: 2000 #返回数据超时时长，（ReadTimeOut + ConnectionTimeOut）* 2 最好低于hystrix的超时时长
+#单独使用Hystrix的配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 设置所有hystrix的超时时间为4000ms

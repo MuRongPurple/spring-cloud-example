@@ -7,7 +7,7 @@ import java.util.Random;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class TestAopController {
 
     @ResponseBody
@@ -33,7 +33,7 @@ public class TestAopController {
     }
 
     @ResponseBody
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public String userInfo(@PathVariable("id") Long id) throws InterruptedException {
 
         if (id % 2 == 0){

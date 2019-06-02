@@ -28,6 +28,7 @@
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <mybatis-spring-boot-starter.version>2.0.1</mybatis-spring-boot-starter.version>
         <mysql.version>5.1.32</mysql.version>
+        <commons-lang3-version>3.8.1</commons-lang3-version>
     </properties>
 
     <!--子工程不会继承的依赖。需要手动引用,但无需写版本-->
@@ -75,6 +76,13 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3-version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
