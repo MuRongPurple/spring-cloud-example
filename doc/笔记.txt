@@ -1,0 +1,109 @@
+DAY50_Springboot
+		1.wmv
+		2.wmk 
+			读取application.yaml 可以使用 注解来注入，不必用@value来
+			@SpringbootApplication注解，做了三件事，声明是一个配置类，开启自动配置（根据引用的jar包，推算你可能需要的bean），扫描包配置
+		3.wmk
+			*SpringBoot的自动配置，自动将相关类实例化，减少了像之前Spring以及SpringMVC的 bean的配置，让开发者只需要引入包就能直接，自动注入
+			*自动配置，autoconfigeration为后缀的类
+			类的注解@ConfigurationProperties(prefix = "spring.datasource") 这个注解，表明yml中配置属性可以和被注解类的属性赋值
+			*如果自己写一个jar包，并且可以自动注入，必须实现由META-INF/spring.factories文件，并且内容包含org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+			如果你的类的属性需要 yml配置，需要类的注解@ConfigurationProperties(prefix = "nide.qianzhui") 
+		4.wmk
+			学会github，开源中国搜开源框架，
+
+DAY51_Springcloud
+		1.wmk
+			微服务架构
+		2.wmk
+			系统间调用 RestTemplate 34m
+		3.wmk 
+			eureka 服务注册中心，与springboot结合使用
+		4.wmk eureka集群，12.32 ，就目前使用方式而言，开启多个eureka服务，需要其他springboot服务，配置每个eureka的ip端口。（eureka是否支持集群内自动合并配置？）
+			ribbon负载均衡
+
+DAY52_Springcloud
+		1.wmk
+			Hystrix 解决雪崩问题
+				线程隔离，服务降级
+				熔断，配置熔断时间，全局，单个方法等等
+		2.wmk
+			Hystrix 断路，恢复条件配置
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"),//每10次请求统计一次，默认20次统计
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"),//开启断路模式closed 10秒，默认5秒
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60")//失败次数超过60%开启断路模式
+            feign的使用，开启熔断负载均衡等
+		3.wmk 
+			ZUUL 配置规则
+		4.wmk
+			zuul集群，之前配置nginx代理，是常见的配置
+			过滤器
+			其他组件：
+				spring-cloud-config：统一配置中心
+				spring-cloud-bus：消息总线
+				spring-cloud-Hystrix-dashboard：容错统计，形成图形化界面
+				spring-cloud-stream：消息通信
+				spring-cloud-sleuth：链路追踪 结合zipkin
+DAY53_ES6
+		1.wmk
+			map,对元素逐个处理
+			reduce，前两个元素处理的结果作为 下一次的第一个元素，然后依次处理
+		2.wmk
+			MVVM
+			Model View ViewModel（视图与数据自动关联改变，由框架处理，无需像jquery手动关联view与model）
+			npm install vue --save 当前项目使用
+			npm install vue -g 全局都能使用
+			npm install nrm -g 切换镜像的工具 nrm ls可以查看所有镜像，自己选择一个，推荐淘宝。
+			也可以 npm set Registry。。。。镜像网站
+
+		3.wmk
+			v-model
+			v-for
+			v-text
+			v-html
+			v-if 一次展示用
+			v-show 频繁切换用
+			v-bind 可以使用 ： 代替，可以在属性上绑定变量
+			class属性值，用. 定义样式
+
+			computed ：计算属性，复杂的计算结果，不要直接写到 html中，写到计算属性中，更简洁
+		4.wmk
+			watch：监控，浅监控（监控值），深监控（监控对象），用于发生修改后检查数据，给出提示
+
+			component 组件，分为全局与局部组件 和template一起使用来定义组件
+
+			父向子通信：子组件定义pros属性，父组件穿绑定属性值
+			子向父通信：this.$emit('') 触发我自定义事件，就是v-on 或者是@
+DAY54
+		1.wmk
+			结构，项目介绍
+		2.wmk
+			搭建项目 vue-client 快速搭建前段项目的脚手架
+			npm install -g vue-cli 全局安装都可以用脚手架了
+		3.wmk
+			Vuetify、elementUI、i-view
+			后台搭建
+		4.wmk
+			通用工具，jackson 
+			ResponseEntity
+			与ResponseBody
+			通用异常处理，controllerAdvice 捕获所有controller抛出异常（可定义捕获自定义的异常，（RunTimeException））********需要留心怎么处理
+DAY55
+	1.wmk
+		修改host
+		代理：代理服务器代理客户机，客户请求访问的是真实服务器域名，都交给代理服务器去请求
+		反向代理：代理服务器代理服务器，客户访问的是代理服务器域名，隐藏真实服务器信息
+	2.wmk
+		商品分类服务，（没看到配置的数据库信息）
+	3.wmk
+		跨域
+			域名不同
+			域名相同，端口不同
+			二级域名不同 
+			跨域不一定会有跨域问题。
+
+			因为跨域问题是浏览器对于ajax请求的一种安全限制：**一个页面发起的ajax请求，只能是于当前页同域名的路径**，这能有效的阻止跨站攻击。
+
+			因此：**跨域问题 是针对ajax的一种限制**。
+
+			但是这却给我们的开发带来了不变，而且在实际生成环境中，肯定会有很多台服务器之间交互，地址和端口都可能不同，怎么办？ CORS解决 25.21

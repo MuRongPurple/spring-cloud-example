@@ -1,6 +1,9 @@
 package com.murongpurple.org.controller;
 
+import com.murongpurple.org.enums.CodeMsgEnum;
+import com.murongpurple.org.myexception.BizException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
@@ -8,7 +11,7 @@ import java.util.Random;
 @Slf4j
 @RestController
 @RequestMapping("/user")
-public class TestAopController {
+public class TestController {
 
     @ResponseBody
     @GetMapping("/index2")
@@ -34,11 +37,11 @@ public class TestAopController {
 
     @ResponseBody
     @GetMapping("/{id}")
-    public String userInfo(@PathVariable("id") Long id) throws InterruptedException {
+    public ResponseEntity<String> userInfo(@PathVariable("id") Long id) throws InterruptedException {
 
         if (id % 2 == 0){
-            throw new RuntimeException("异常");
+            throw new BizException(CodeMsgEnum.USERNUM_CANNOT_BE_EVEN);
         }
-        return "hello murongpurple user";
+        return ResponseEntity.ok("hello murongpurple user");
     }
 }
